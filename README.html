@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Getting And Cleaning Data: Course Project Read Me </title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Getting And Cleaning Data: Course Project Read Me </h1>
+
+<p>The run_analysis.R script contains three functions relating to getting, processing and making calculations on data collected from the accelerometers from the Samsung Galaxy S smartphone.</p>
+
+<h2>Summary</h2>
+
+<p>The purpose of this script is to completed the following tasks:</p>
+
+<ul>
+<li>Load the data from separate files</li>
+<li>Combine two primary datasets: test and train</li>
+<li>Load column headings and clean up names to be compliant with R programming best practices</li>
+<li>Append activities and individual participant (subject) identifier to combined file</li>
+<li>Update activities to reflect description instead of activity id</li>
+<li>Select a subset of combined dataset containing only columns that represent mean and standard deviation calculations</li>
+<li>Create a separate data frame containing the mean of each column grouped by the subject and their activity</li>
+</ul>
+
+<h3>Selection of Mean and Standard Deviation Columns</h3>
+
+<p>All columns that contained &ldquo;mean&rdquo; or &ldquo;std&rdquo; in their names were selected. The instructions did not provided details to which particular measures of mean and standard deviation were required. So, for the sake of completeness, all were selected as it is better to be able to remove data if not needed than to not have it available.</p>
+
+<h2>Data Source</h2>
+
+<p>The data was obtained from the below link. </p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+
+<p>The link to the zip file containing the actual data elements is below. For further details regarding the source and processing of the ouriginal data, please see the README file located in the zip file with the data.</p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
+
+<h2>Libraries Needed</h2>
+
+<p>To use this script, you need the following packages installed from the CRAN:</p>
+
+<ul>
+<li>stringr</li>
+<li>reshape2</li>
+</ul>
+
+<h2>Using the script</h2>
+
+<p>To use the script, simply use the source() function to reference the script, then use one of the functions below.</p>
+
+<h2>Functions</h2>
+
+<h3>Get.Process.Data()</h3>
+
+<p>This function performs the following tasks and returns a dataframe of the tidy data set of combined test and train data frames:</p>
+
+<ul>
+<li>Links to the remote zip file</li>
+<li>Saves it to a temporary file</li>
+<li>Extracts the necessary files to data frames </li>
+<li>Fixes the column names</li>
+<li>Adds them to the test and train data frames</li>
+<li>Appends the subject and activity data to heir respective test or train data frame</li>
+<li>Combines the test and train data frames</li>
+<li>Merges the activity descriptions to the combined data frame</li>
+<li>Returns the combined dataframe</li>
+</ul>
+
+<p><strong>You do not have to run this function before running the others. Only run this separately if you want to return the combined tidy data frame. The other functions will call this function.</strong></p>
+
+<h3>MeanStd()</h3>
+
+<p>This function performs the following tasks:</p>
+
+<ul>
+<li>Calls Get.Process.Data()</li>
+<li>Create a vector of all variables with &ldquo;mean&rdquo; or &ldquo;std&rdquo; in the name</li>
+<li>Adds &ldquo;ActivityDesc&rdquo; and &ldquo;Subject&rdquo; columns to vector of column names</li>
+<li>Creates subset of combined tidy data frame containing Subject, Activity and mean and standard deviation columns.</li>
+<li>Writes the data frame to mean_std.txt in the working directory with headers</li>
+</ul>
+
+<h3>Averages()</h3>
+
+<p>This function performs the following tasks:</p>
+
+<ul>
+<li>Calls Get.Process.Data()</li>
+<li>Melts combined tidy data frame by ActivityDesc and Subject</li>
+<li>Creates a data frame containing the mean of each column grouped by ActivityDesc &amp; Subject by using dcast</li>
+<li>Writes the data frame to means_by_activity_subject.txt in the working directory with headers</li>
+</ul>
+
+</body>
+
+</html>
+
