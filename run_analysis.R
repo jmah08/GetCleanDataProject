@@ -77,7 +77,7 @@ MeanStd <- function() {
 	## create a vector of all variables with "mean" or "std" in the name
 	mean.std.Columns <- grep("*mean*|*std*", colnames(completed), ignore.case=T, value=T)
 
-	## add in "ActivityDesc" and "Subject" columns to list of column names
+	## add in "ActivityDesc" and "Subject" columns to vector of column names
 	mean.std.Columns <- append(mean.std.Columns, c("ActivityDesc", "Subject"))
 
 	## create subset of only columns selected in above step
@@ -85,7 +85,7 @@ MeanStd <- function() {
 
 	## write subset to file
 
-	write.table(mean.std, "project2_mean_std.txt", row.names=F)
+	write.table(mean.std, "mean_std.txt", row.names=F)
 
 }	
 
@@ -98,6 +98,9 @@ Averages <- function() {
 	## get data and process data
 	completed <- Get.Process.Data()
 
+	## load reshape2 library
+	library(reshape2)
+
 	## melt completed data frame by ActivityDesc and Subject
 	completed.melt <- melt(completed, id=c("ActivityDesc", "Subject"))
 
@@ -105,7 +108,7 @@ Averages <- function() {
 	completed.means <- dcast(completed.melt, ActivityDesc + Subject ~ variable, mean)
 
 	## write the data frame containing the means to a file in working directory
-	write.table(completed.means, "project2_means_by_activity_subject.txt", row.names=F)
+	write.table(completed.means, "means_by_activity_subject.txt", row.names=F)
 
 }
 
